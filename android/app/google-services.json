@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "883068822248",
+    "project_id": "mynotes-rg1114",
+    "storage_bucket": "mynotes-rg1114.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883068822248:android:ac82c630409f7900209f5d",
+        "android_client_info": {
+          "package_name": "com.RGapp1.notes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-JwPcRcerTIfRS-OUSYGGbSmvf0AZ0rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

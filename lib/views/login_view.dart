@@ -1,12 +1,17 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:firebase_core/firebase_core.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 //import '../firebase_options.dart';
 import 'dart:developer' as devtools;
 
 import 'package:notes/constants/routes.dart';
+import 'package:notes/services/auth/auth_exceptions.dart';
+import 'package:notes/services/auth/auth_service.dart';
+import 'package:notes/services/auth/auth_user.dart';
 import 'package:notes/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
@@ -76,32 +81,28 @@ class _LoginViewState extends State<LoginView>
                 final email=_email.text;
                 final password=_password.text;
                 try{
-                    final userCredential =
-                  await  FirebaseAuth.instance.signInWithEmailAndPassword(
-                  email: email,
-                  password: password,
-                );
-                final user=FirebaseAuth.instance.currentUser;
-                if(user?.emailVerified ??false){
+                    await AuthService.firebase().logIn(email: email, password: password);
+                  
+                final user=AuthService.firebase().currentUser;
+                if(user?.isEmailVerified ??false){
                   Navigator.of(context).pushNamedAndRemoveUntil(notesRoute, 
                 (route) => false);
 
-                }else{
+                }
+                else{
                   Navigator.of(context).pushNamedAndRemoveUntil(verifyEmailRoute, 
                 (route) => false);
                 }
-                
-                 } on FirebaseAuthException catch(e)
-                 {
-                  if(e.code=='INVALID_LOGIN_CREDENTIALS')
-                  {
+                }on  InvalidUserAuthException{
+                  
                     await showErrorDialog(context,'Either the mail or the password is incorrect');
-                  }
-                  else
-                  {
-                    await showErrorDialog(context,'Error: ${e.code}');
-                  }
-                }catch(e)
+                  
+                 }
+                 on FirebaseAuthException catch (e){
+                   await showErrorDialog(context,'Error: ${e.code}');
+
+                 }
+                 catch(e)
                 {
                   await showErrorDialog(context,e.toString());
                 }

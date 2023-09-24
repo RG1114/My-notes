@@ -81,8 +81,16 @@ class _LoginViewState extends State<LoginView>
                   email: email,
                   password: password,
                 );
-                Navigator.of(context).pushNamedAndRemoveUntil(notesRoute, 
+                final user=FirebaseAuth.instance.currentUser;
+                if(user?.emailVerified ??false){
+                  Navigator.of(context).pushNamedAndRemoveUntil(notesRoute, 
                 (route) => false);
+
+                }else{
+                  Navigator.of(context).pushNamedAndRemoveUntil(verifyEmailRoute, 
+                (route) => false);
+                }
+                
                  } on FirebaseAuthException catch(e)
                  {
                   if(e.code=='INVALID_LOGIN_CREDENTIALS')
@@ -97,6 +105,7 @@ class _LoginViewState extends State<LoginView>
                 {
                   await showErrorDialog(context,e.toString());
                 }
+                
                 
               },
               child: const Text('Login') ,

@@ -10,6 +10,7 @@ import 'package:notes/views/notes/notes_view.dart';
 import 'package:notes/views/register_view.dart';
 import 'package:notes/views/verify_email_view.dart';
 import 'dart:developer' as devtools;
+import 'package:share_plus/share_plus.dart';
 
 
 

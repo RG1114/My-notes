@@ -6,7 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' as devtools;
 
 import 'package:notes/constants/routes.dart';
-import 'package:notes/utilities/show_error_dialog.dart';
+import 'package:notes/utilities/dialogs/error_dialog.dart';
+
 
 
 
